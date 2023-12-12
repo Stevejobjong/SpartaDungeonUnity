@@ -21,4 +21,13 @@ public class EquipPopup : MonoBehaviour
     {
         Inventory.instance.EquipPopup.gameObject.SetActive(false);
     }
+
+    public void SetPopup(Sprite _equipIcon, Sprite _statIcon, string _itemName, string desc, float statValue)
+    {
+        EquipItemIcon.sprite = _equipIcon;
+        EquipStatIcon.sprite = _statIcon;
+        EquipItemName.text = _itemName;
+        EquipItemDescription.text = desc;
+        EquipStatValue.text = statValue.ToString();
+    }
 }

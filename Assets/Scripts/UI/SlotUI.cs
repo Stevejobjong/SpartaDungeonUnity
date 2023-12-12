@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class SlotUI : MonoBehaviour
 {
     protected Inventory inven;
-    public Image image;
     protected ItemSO curItem;
+
+    public Image image;
     public int index;
     public ItemType type => curItem.ItemType;
     protected void Start()

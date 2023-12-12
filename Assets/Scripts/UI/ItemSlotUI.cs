@@ -38,9 +38,7 @@ public class ItemSlotUI : SlotUI
     }
     public void OnClicked()
     {
-        //inven = Inventory.instance;
         inven.selectedItemIndex = index;
-        //PopupUI = inven.EquipPopup.GetComponent<EquipPopup>();
         if (curItem == null)
             return;
         if (equipped)
@@ -48,29 +46,17 @@ public class ItemSlotUI : SlotUI
         else
             inven.Equip_text.text = "장착 하시겠습니까?";
 
-        PopupUI.EquipItemIcon.sprite = curItem.icon;
-        PopupUI.EquipItemName.text = curItem.name;
-        PopupUI.EquipItemDescription.text= curItem.description;
         if (curItem.AdditionalPower > 0)
         {
-            PopupUI.EquipStatIcon.sprite = Resources.Load<Sprite>("sword");
-            PopupUI.EquipStatValue.text = curItem.AdditionalPower.ToString();
-            inven.selectedItemStatValue = curItem.AdditionalPower;
-            inven.selectedItemStatType = StatType.Power;
+            PopupUI.SetPopup(curItem.icon, Resources.Load<Sprite>("sword"), curItem.ItemName, curItem.description, curItem.AdditionalPower);
         }
         else if (curItem.AdditionalDefense > 0)
         {
-            PopupUI.EquipStatIcon.sprite = Resources.Load<Sprite>("belt");
-            PopupUI.EquipStatValue.text = curItem.AdditionalDefense.ToString();
-            inven.selectedItemStatValue = curItem.AdditionalDefense;
-            inven.selectedItemStatType = StatType.Defense;
+            PopupUI.SetPopup(curItem.icon, Resources.Load<Sprite>("belt"), curItem.ItemName, curItem.description, curItem.AdditionalDefense);
         }
         else if (curItem.AdditionalCriticalHit > 0)
         {
-            PopupUI.EquipStatIcon.sprite = Resources.Load<Sprite>("clover");
-            PopupUI.EquipStatValue.text = curItem.AdditionalCriticalHit.ToString();
-            inven.selectedItemStatValue = curItem.AdditionalCriticalHit;
-            inven.selectedItemStatType = StatType.CriticalHit;
+            PopupUI.SetPopup(curItem.icon, Resources.Load<Sprite>("clover"), curItem.ItemName, curItem.description, curItem.AdditionalCriticalHit);
         }
         PopupUI.gameObject.SetActive(true);
     }

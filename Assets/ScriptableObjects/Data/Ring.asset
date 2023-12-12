@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ring
   m_EditorClassIdentifier: 
   ItemType: 1
+  StatType: 1
   ItemName: "\uC608\uC05C \uBC18\uC9C0"
   description: "\uC608\uC058\uAE30\uB9CC \uD558\uB2E4"
   AdditionalPower: 0

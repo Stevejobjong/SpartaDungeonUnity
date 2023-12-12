@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,22 +10,25 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
 
 
+    [Header("Inventory Info")]
+    public ItemSlotUI[] inventorySlots;
+    public ItemSO[] slots;
+    public int gold;
+    [SerializeField] TMP_Text goldText;
+    [SerializeField] private List<int> curEquipIndex;
+
+    [Header("Popup Info")]
     public GameObject EquipPopup;
     public TMP_Text Equip_text;
 
-    public ItemSlotUI[] inventorySlots;
-    public ItemSO[] slots;
-    //TODO : select 됐을 때 active할 UI에 아이템 아이콘, 이름, 설명, 증가하는 스탯 표시
-    public int gold;
-    private List<int> curEquipIndex;
+    [Header("Selected Item Info")]
     public int selectedItemIndex;
-    public StatType selectedItemStatType;
-    public float selectedItemStatValue;
 
+    //시작하자마자 가지고있을 아이템 테스트
     public ItemSO[] test;
     private void Awake()
     {
-        curEquipIndex=new List<int>();
+        curEquipIndex = new List<int>();
         instance = this;
     }
     void Start()
@@ -36,9 +40,17 @@ public class Inventory : MonoBehaviour
             inventorySlots[i].index = i;
             inventorySlots[i].Clear();
         }
+
         for (int i = 0; i < test.Length; i++)
             AddItem(test[i]);
     }
+    public void SetGold()
+    {
+        goldText.text = string.Format("{0:#,###}", gold);
+        //TODO 골드 표시 인벤토리가?
+    }
+
+    //UI 갱신
     public void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -49,6 +61,8 @@ public class Inventory : MonoBehaviour
                 inventorySlots[i].Clear();
         }
     }
+
+    //아이템 추가
     public bool AddItem(ItemSO item)
     {
         for (int i = 0; i < slots.Length; i++)
@@ -61,6 +75,8 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
+
+    //장착 토글
     public void EquipToggle()
     {
         if (inventorySlots[selectedItemIndex].equipped)
@@ -71,7 +87,7 @@ public class Inventory : MonoBehaviour
     public void OnEquip(int index)
     {
         //현재 장착중인 아이템이 있고, 그 아이템과 장착하려는 아이템의 타입이 같다면 UnEquip
-        for(int i = 0; i < curEquipIndex.Count; i++)
+        for (int i = 0; i < curEquipIndex.Count; i++)
         {
             if (inventorySlots[curEquipIndex[i]].equipped && inventorySlots[curEquipIndex[i]].type == inventorySlots[index].type)
             {
@@ -79,14 +95,14 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
-        GameManager.instance.AddPlayerStat(selectedItemStatType,selectedItemStatValue);
+        GameManager.instance.AddPlayerStat(slots[index], 1);
         inventorySlots[index].equipped = true;
         curEquipIndex.Add(index);
         UpdateUI();
     }
     public void UnEquip(int index)
     {
-        GameManager.instance.AddPlayerStat(selectedItemStatType, -selectedItemStatValue);
+        GameManager.instance.AddPlayerStat(slots[index], -1);
         curEquipIndex.Remove(index);
         inventorySlots[index].equipped = false;
         UpdateUI();

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tissue
   m_EditorClassIdentifier: 
   ItemType: 1
+  StatType: 2
   ItemName: "\uD734\uC9C0"
   description: "\uC804\uC7A5\uC5D0\uC11C \uD544\uC694\uD560\uC9C0\uB3C4 \uBAA8\uB978\uB2E4"
   AdditionalPower: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 
@@ -19,12 +20,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Information")]
     public Transform Player;
-    private PlayerStatusHandler playerstat { get; set; }
+    private PlayerStatusHandler playerstat;
     [SerializeField] TMP_Text attackValueText;
     [SerializeField] TMP_Text defenseValueText;
     [SerializeField] TMP_Text healthValueText;
     [SerializeField] TMP_Text criticalValueText;
-    [SerializeField] TMP_Text gold;
     private void Awake()
     {
         instance = this;
@@ -32,13 +32,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        GetGold();
         GetPlayerStat();
-    }
-
-    void Update()
-    {
-
     }
 
     public void OnClickedStatusButton()
@@ -87,12 +81,15 @@ public class GameManager : MonoBehaviour
         healthValueText.text = playerstat.getHealth().ToString();
         criticalValueText.text = playerstat.getCritical().ToString();
     }
-    public void GetGold()
+    public void AddPlayerStat(ItemSO itemSo, int sign)
     {
-        gold.text = string.Format("{0:#,###}", Inventory.instance.gold);
-    }
-    public void AddPlayerStat(StatType type, float value)
-    {
-        playerstat.AddStat(type, value);
+        float value;
+        if (itemSo.StatType == StatType.Power)
+            value = itemSo.AdditionalPower;
+        else if (itemSo.StatType == StatType.Defense)
+            value = itemSo.AdditionalDefense;
+        else
+            value = itemSo.AdditionalCriticalHit;
+        playerstat.AddStat(itemSo.StatType, value * sign);
     }
 }

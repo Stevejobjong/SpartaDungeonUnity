@@ -8,7 +8,7 @@ public class PlayerStatusHandler : MonoBehaviour
     private StatusSO playerStatusSO;
     private void Awake()
     {
-        //기본 데이터를 건들지 않고 clone생성
+        //기본 데이터를 건들지 않고 clone생성해서 사용
         playerStatusSO = Instantiate(baseStatus.statusSO);
     }
     public float getHealth()

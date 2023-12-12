@@ -3010,8 +3010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f74798e6093554f90f132d901b27c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EquipPopup: {fileID: 16856041}
-  Equip_text: {fileID: 1580946190}
   inventorySlots:
   - {fileID: 1937976457}
   - {fileID: 1865604771}
@@ -3031,9 +3029,12 @@ MonoBehaviour:
   - {fileID: 1038726200}
   slots: []
   gold: 20000
+  goldText: {fileID: 1755159050}
+  EquipPopup: {fileID: 16856041}
+  Equip_text: {fileID: 1580946190}
   selectedItemIndex: 0
-  selectedItemStatType: 0
   selectedItemStatValue: 0
+  selectedItemStatType: 0
   test:
   - {fileID: 11400000, guid: d431a440a33a19e46a0dc847e69f4f52, type: 2}
   - {fileID: 11400000, guid: 2aa44171c40b2974eac42c49cd7b2c23, type: 2}
@@ -6855,7 +6856,6 @@ MonoBehaviour:
   defenseValueText: {fileID: 96470918}
   healthValueText: {fileID: 1917959552}
   criticalValueText: {fileID: 1573260347}
-  gold: {fileID: 1755159050}
 --- !u!4 &1781506302
 Transform:
   m_ObjectHideFlags: 0
@@ -9679,8 +9679,20 @@ PrefabInstance:
       value: EquipPopup, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9012255683242918044, guid: cba5f9ecb039be94899e2e71281627e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012255683242918044, guid: cba5f9ecb039be94899e2e71281627e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 16856041}
+    - target: {fileID: 9012255683242918044, guid: cba5f9ecb039be94899e2e71281627e0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickedEquipPopupNoButton
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012255683242918044, guid: cba5f9ecb039be94899e2e71281627e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

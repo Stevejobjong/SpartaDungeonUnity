@@ -18,7 +18,7 @@ public class ShopSlotUI : SlotUI
     public void SetShopItemInfo()
     {
         image.sprite = curItem.icon;
-        itemName.text = curItem.name;
+        itemName.text = curItem.ItemName;
         itemDescription.text = curItem.description;
         if (curItem.AdditionalPower > 0)
         {
@@ -39,6 +39,7 @@ public class ShopSlotUI : SlotUI
     }
     public void OnClickBuyButton()
     {
+        //돈이 부족하면 실패
         if(curItem.Price> inven.gold)
         {
             Shop.instance.PurchaseResult(false);
@@ -46,13 +47,14 @@ public class ShopSlotUI : SlotUI
         }
         else
         {
+            //인벤토리가 가득 차면 실패
             if(!inven.AddItem(curItem))
             {
                 Shop.instance.PurchaseResult(false);
                 return;
             }
             inven.gold -= curItem.Price;
-            GameManager.instance.GetGold();
+            inven.SetGold();
             Shop.instance.PurchaseResult(true);
         }
     }

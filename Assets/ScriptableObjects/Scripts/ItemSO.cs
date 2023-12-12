@@ -17,6 +17,7 @@ public class ItemSO : ScriptableObject
 {
     [Header("Info")]
     public ItemType ItemType;
+    public StatType StatType;
     public string ItemName;
     public string description;
     public float AdditionalPower;

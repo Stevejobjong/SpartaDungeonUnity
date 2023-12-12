@@ -39,7 +39,7 @@ public class PlayerStatusHandler : MonoBehaviour
                 break;
             case StatType.CriticalHit:
                 playerStatusSO.CriticalHit += value;
-                break; ;
+                break;
         }
     }
 }

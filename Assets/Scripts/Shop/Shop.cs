@@ -26,7 +26,7 @@ public class Shop : MonoBehaviour
     }
     public void PurchaseResult(bool isSuccess)
     {
-        if(isSuccess)
+        if (isSuccess)
             successUI.SetActive(true);
         else
             faildUI.SetActive(true);

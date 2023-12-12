@@ -40,7 +40,7 @@ public class ShopSlotUI : SlotUI
     public void OnClickBuyButton()
     {
         //돈이 부족하면 실패
-        if(curItem.Price> inven.gold)
+        if (curItem.Price > inven.gold)
         {
             Shop.instance.PurchaseResult(false);
             return;
@@ -48,7 +48,7 @@ public class ShopSlotUI : SlotUI
         else
         {
             //인벤토리가 가득 차면 실패
-            if(!inven.AddItem(curItem))
+            if (!inven.AddItem(curItem))
             {
                 Shop.instance.PurchaseResult(false);
                 return;

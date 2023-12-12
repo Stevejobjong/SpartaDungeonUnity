@@ -12,7 +12,7 @@ public enum StatType
     Defense,
     CriticalHit
 }
-[CreateAssetMenu(fileName = "New Item",menuName = "Create Item SO",order = 1)]
+[CreateAssetMenu(fileName = "New Item", menuName = "Create Item SO", order = 1)]
 public class ItemSO : ScriptableObject
 {
     [Header("Info")]

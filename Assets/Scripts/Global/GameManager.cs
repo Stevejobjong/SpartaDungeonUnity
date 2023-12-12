@@ -6,10 +6,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Canvas")]
     public GameObject StatusUI;
     public GameObject InventoryUI;
+    public GameObject ShopUI;
+
+    [Header("Button")]
     public GameObject StatusButton;
     public GameObject InventoryButton;
+    public GameObject ShopButton;
+
+    [Header("Player Information")]
     public Transform Player;
     private PlayerStatusHandler playerstat;
     [SerializeField] TMP_Text attackValueText;
@@ -20,15 +27,11 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         playerstat=Player.GetComponent<PlayerStatusHandler>();
-        attackValueText.text = playerstat.getPower().ToString();
-        defenseValueText.text = playerstat.getDefense().ToString();
-        healthValueText.text = playerstat.getHealth().ToString();
-        criticalValueText.text = playerstat.getCritical().ToString();
     }
     void Start()
     {
-        gold.text = string.Format("{0:#,###}", Inventory.instance.gold);
-
+        GetGold();
+        GetPlayerStat();
     }
 
     void Update()
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         StatusButton.SetActive(false);
         InventoryButton.SetActive(false);
+        ShopButton.SetActive(false);
         StatusUI.SetActive(true);
     }
     public void OnClickedStatusCloseButton()
@@ -47,11 +51,14 @@ public class GameManager : MonoBehaviour
         StatusUI.SetActive(false);
         StatusButton.SetActive(true);
         InventoryButton.SetActive(true);
+        ShopButton.SetActive(true);
     }
     public void OnClickedInventoryButton()
     {
         StatusButton.SetActive(false);
         InventoryButton.SetActive(false);
+        ShopButton.SetActive(false);
+        Inventory.instance.UpdateUI();
         InventoryUI.SetActive(true);
     }
     public void OnClickedInventoryCloseButton()
@@ -59,5 +66,26 @@ public class GameManager : MonoBehaviour
         InventoryUI.SetActive(false);
         StatusButton.SetActive(true);
         InventoryButton.SetActive(true);
+        ShopButton.SetActive(true);
+    }
+    public void OnClickedShopButton()
+    {
+        ShopUI.SetActive(true);
+    }
+    public void OnClickedShopCloseButton()
+    {
+        ShopUI.SetActive(false);
+    }
+    //플레이어의 공격력, 방어력, HP, 치명타 정보를 얻어와 Status창의 Text 갱신
+    public void GetPlayerStat()
+    {
+        attackValueText.text = playerstat.getPower().ToString();
+        defenseValueText.text = playerstat.getDefense().ToString();
+        healthValueText.text = playerstat.getHealth().ToString();
+        criticalValueText.text = playerstat.getCritical().ToString();
+    }
+    public void GetGold()
+    {
+        gold.text = string.Format("{0:#,###}", Inventory.instance.gold);
     }
 }

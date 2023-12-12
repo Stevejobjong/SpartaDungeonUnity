@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e913514645fc1ab43a6c7c407b635699, type: 3}
-  m_Name: Hammer
+  m_Name: New Item
   m_EditorClassIdentifier: 
   ItemType: 0
-  ItemName: "\uCEE4\uB2E4\uB780 \uB9DD\uCE58"
-  description: "\uC9C4\uC815\uD55C \uC804\uC0AC\uB9CC\uC774 \uC0AC\uC6A9\uD560 \uC218
-    \uC788\uB2E4"
-  AdditionalPower: 100
+  ItemName: 
+  description: 
+  AdditionalPower: 0
   AdditionalDefense: 0
   AdditionalCriticalHit: 0
-  icon: {fileID: 21300000, guid: 27bdb876939215f41bd72bd2f5ad21f4, type: 3}
+  icon: {fileID: 0}

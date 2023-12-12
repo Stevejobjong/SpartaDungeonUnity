@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
 
 
     [Header("Inventory Info")]
+    public TMP_Text InventorySpace;
     public ItemSlotUI[] inventorySlots;
     public ItemSO[] slots;
     public int gold;
@@ -46,20 +47,27 @@ public class Inventory : MonoBehaviour
     }
     public void SetGold()
     {
-        goldText.text = string.Format("{0:#,###}", gold);
-        //TODO 골드 표시 인벤토리가?
+        if (gold <= 0)
+            goldText.text = "0";
+        else
+            goldText.text = string.Format("{0:#,###}", gold);
     }
 
     //UI 갱신
     public void UpdateUI()
     {
+        int cnt = 0;
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i] != null)
+            {
+                cnt++;
                 inventorySlots[i].Set(slots[i]);
+            }
             else
                 inventorySlots[i].Clear();
         }
+        InventorySpace.text = $"{cnt}/{inventorySlots.Length}";
     }
 
     //아이템 추가

@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 35
   Defense: 40
-  Health: 100
-  CriticalHit: 25
+  CriticalHit: 75

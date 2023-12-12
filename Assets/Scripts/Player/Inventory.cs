@@ -14,17 +14,17 @@ public class Inventory : MonoBehaviour
 
     public ItemSlotUI[] uiSlots;
     public ItemSO[] slots;
-    //TODO : select µÆÀ» ¶§ activeÇÒ UI¿¡ ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ, ÀÌ¸§, ¼³¸í, Áõ°¡ÇÏ´Â ½ºÅÈ Ç¥½Ã
-    public TMP_Text selectedItemName;
-    public TMP_Text selectedItemDescription;
+    //TODO : select ëì„ ë•Œ activeí•  UIì— ì•„ì´í…œ ì•„ì´ì½˜, ì´ë¦„, ì„¤ëª…, ì¦ê°€í•˜ëŠ” ìŠ¤íƒ¯ í‘œì‹œ
     public Image AttackIcon;
     public Image DefenseIcon;
     public Image CriticalIcon;
     public int gold;
     private List<int> curEquipIndex;
     public int selectedItemIndex;
+    public StatType selectedItemStatType;
+    public float selectedItemStatValue;
 
-    public ItemSO test;
+    public ItemSO[] test;
     private void Awake()
     {
         curEquipIndex=new List<int>();
@@ -39,7 +39,8 @@ public class Inventory : MonoBehaviour
             uiSlots[i].index = i;
             uiSlots[i].Clear();
         }
-        AddItem(test);
+        for (int i = 0; i < test.Length; i++)
+            AddItem(test[i]);
     }
     public void UpdateUI()
     {
@@ -71,7 +72,7 @@ public class Inventory : MonoBehaviour
     }
     public void OnEquip(int index)
     {
-        //ÇöÀç ÀåÂøÁßÀÎ ¾ÆÀÌÅÛÀÌ ÀÖ°í, ±× ¾ÆÀÌÅÛ°ú ÀåÂøÇÏ·Á´Â ¾ÆÀÌÅÛÀÇ Å¸ÀÔÀÌ °°´Ù¸é UnEquip
+        //í˜„ì¬ ì¥ì°©ì¤‘ì¸ ì•„ì´í…œì´ ìˆê³ , ê·¸ ì•„ì´í…œê³¼ ì¥ì°©í•˜ë ¤ëŠ” ì•„ì´í…œì˜ íƒ€ì…ì´ ê°™ë‹¤ë©´ UnEquip
         for(int i = 0; i < curEquipIndex.Count; i++)
         {
             if (uiSlots[curEquipIndex[i]].equipped && uiSlots[curEquipIndex[i]].type == uiSlots[index].type)
@@ -80,13 +81,14 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
-
+        GameManager.instance.AddPlayerStat(selectedItemStatType,selectedItemStatValue);
         uiSlots[index].equipped = true;
         curEquipIndex.Add(index);
         UpdateUI();
     }
     public void UnEquip(int index)
     {
+        GameManager.instance.AddPlayerStat(selectedItemStatType, -selectedItemStatValue);
         curEquipIndex.Remove(index);
         uiSlots[index].equipped = false;
         UpdateUI();

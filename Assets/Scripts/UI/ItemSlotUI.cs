@@ -6,17 +6,25 @@ using UnityEngine.UI;
 
 public class ItemSlotUI : MonoBehaviour
 {
+    private EquipPopup PopupUI;
+    private Inventory inven;
+    public GameObject equipMark;
     public Button button;
     public Image image;
     private ItemSO curItem;
-    public GameObject equipMark;
+
     public int index;
     public bool equipped;
     public ItemType type => curItem.ItemType;
+
+    private void Start()
+    {
+        inven = Inventory.instance;
+        PopupUI = inven.EquipPopup.GetComponent<EquipPopup>();
+    }
     private void OnEnable()
     {
         equipMark.SetActive(equipped);
-        
     }
     public void Set(ItemSO slot)
     {
@@ -36,25 +44,41 @@ public class ItemSlotUI : MonoBehaviour
     }
     public void OnClicked()
     {
-        Inventory inven = Inventory.instance;
+        //inven = Inventory.instance;
         inven.selectedItemIndex = index;
+        //PopupUI = inven.EquipPopup.GetComponent<EquipPopup>();
         if (curItem == null)
             return;
         if (equipped)
-            inven.Equip_text.text = "ÀåÂø ÇØÁ¦ ÇÏ½Ã°Ú½À´Ï±î?";
+            inven.Equip_text.text = "ìž¥ì°© í•´ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
         else
-            inven.Equip_text.text = "ÀåÂø ÇÏ½Ã°Ú½À´Ï±î?";
-        inven.EquipPopup.SetActive(true);
+            inven.Equip_text.text = "ìž¥ì°© í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
+
+        PopupUI.EquipItemIcon.sprite = curItem.icon;
+        PopupUI.EquipItemName.text = curItem.name;
+        PopupUI.EquipItemDescription.text= curItem.description;
+        if (curItem.AdditionalPower > 0)
+        {
+            PopupUI.EquipStatIcon.sprite = Resources.Load<Sprite>("sword");
+            PopupUI.EquipStatValue.text = curItem.AdditionalPower.ToString();
+            inven.selectedItemStatValue = curItem.AdditionalPower;
+            inven.selectedItemStatType = StatType.Power;
+        }
+        else if (curItem.AdditionalDefense > 0)
+        {
+            PopupUI.EquipStatIcon.sprite = Resources.Load<Sprite>("belt");
+            PopupUI.EquipStatValue.text = curItem.AdditionalDefense.ToString();
+            inven.selectedItemStatValue = curItem.AdditionalDefense;
+            inven.selectedItemStatType = StatType.Defense;
+        }
+        else if (curItem.AdditionalCriticalHit > 0)
+        {
+            PopupUI.EquipStatIcon.sprite = Resources.Load<Sprite>("clover");
+            PopupUI.EquipStatValue.text = curItem.AdditionalCriticalHit.ToString();
+            inven.selectedItemStatValue = curItem.AdditionalCriticalHit;
+            inven.selectedItemStatType = StatType.CriticalHit;
+        }
+        PopupUI.gameObject.SetActive(true);
     }
-    public void OnClickedYesButton()
-    {
-        Inventory inven = Inventory.instance;
-        inven.EquipPopup.SetActive(false);
-        inven.EquipToggle();
-    }
-    public void OnClickedNoButton()
-    {
-        Inventory inven = Inventory.instance;
-        inven.EquipPopup.SetActive(false);
-    }
+
 }

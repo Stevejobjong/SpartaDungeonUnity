@@ -22,4 +22,19 @@ public class PlayerStatusHandler : MonoBehaviour
     {
         return baseStatus.statusSO.CriticalHit;
     }
+    public void AddStat(StatType type, float value)
+    {
+        switch (type)
+        {
+            case StatType.Power:
+                baseStatus.statusSO.Power += value;
+                break;
+            case StatType.Defense:
+                baseStatus.statusSO.Defense += value;
+                break;
+            case StatType.CriticalHit:
+                baseStatus.statusSO.CriticalHit += value;
+                break; ;
+        }
+    }
 }

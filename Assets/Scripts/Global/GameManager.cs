@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [Header("Canvas")]
     public GameObject StatusUI;
     public GameObject InventoryUI;
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Information")]
     public Transform Player;
-    private PlayerStatusHandler playerstat;
+    private PlayerStatusHandler playerstat { get; set; }
     [SerializeField] TMP_Text attackValueText;
     [SerializeField] TMP_Text defenseValueText;
     [SerializeField] TMP_Text healthValueText;
@@ -26,7 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text gold;
     private void Awake()
     {
-        playerstat=Player.GetComponent<PlayerStatusHandler>();
+        instance = this;
+        playerstat = Player.GetComponent<PlayerStatusHandler>();
     }
     void Start()
     {
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void OnClickedStatusButton()
     {
+        GetPlayerStat();
         StatusButton.SetActive(false);
         InventoryButton.SetActive(false);
         ShopButton.SetActive(false);
@@ -76,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         ShopUI.SetActive(false);
     }
-    //ÇÃ·¹ÀÌ¾îÀÇ °ø°İ·Â, ¹æ¾î·Â, HP, Ä¡¸íÅ¸ Á¤º¸¸¦ ¾ò¾î¿Í StatusÃ¢ÀÇ Text °»½Å
+    //í”Œë ˆì´ì–´ì˜ ê³µê²©ë ¥, ë°©ì–´ë ¥, HP, ì¹˜ëª…íƒ€ ì •ë³´ë¥¼ ì–»ì–´ì™€ Statusì°½ì˜ Text ê°±ì‹ 
     public void GetPlayerStat()
     {
         attackValueText.text = playerstat.getPower().ToString();
@@ -87,5 +90,9 @@ public class GameManager : MonoBehaviour
     public void GetGold()
     {
         gold.text = string.Format("{0:#,###}", Inventory.instance.gold);
+    }
+    public void AddPlayerStat(StatType type, float value)
+    {
+        playerstat.AddStat(type, value);
     }
 }

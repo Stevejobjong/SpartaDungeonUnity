@@ -148,9 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1690c140e1b1faf44b4be4a0ed4f2b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PopupUI: {fileID: 1638581716737142078, guid: cba5f9ecb039be94899e2e71281627e0, type: 3}
+  equipMark: {fileID: 7141896303608439002}
   button: {fileID: 6852577428355259598}
   image: {fileID: 2788609551440428152}
-  equipMark: {fileID: 7141896303608439002}
   index: 0
   equipped: 0
 --- !u!1 &3867465106003529295
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.40784317, g: 0.6509804, b: 0.9058824, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -17,4 +17,6 @@ MonoBehaviour:
   description: "\uC608\uC058\uAE30\uB9CC \uD558\uB2E4"
   AdditionalPower: 0
   AdditionalDefense: 1
+  AdditionalCriticalHit: 0
+  Price: 15000
   icon: {fileID: 21300000, guid: cea4a58609fcc6841b901c428ed158ee, type: 3}

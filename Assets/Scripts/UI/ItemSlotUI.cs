@@ -4,22 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlotUI : MonoBehaviour
+public class ItemSlotUI : SlotUI
 {
     private EquipPopup PopupUI;
-    private Inventory inven;
     public GameObject equipMark;
-    public Button button;
-    public Image image;
-    private ItemSO curItem;
 
-    public int index;
     public bool equipped;
-    public ItemType type => curItem.ItemType;
 
-    private void Start()
+    private new void Start()
     {
-        inven = Inventory.instance;
+        base.Start();
         PopupUI = inven.EquipPopup.GetComponent<EquipPopup>();
     }
     private void OnEnable()

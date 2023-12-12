@@ -22,5 +22,6 @@ public class ItemSO : ScriptableObject
     public float AdditionalPower;
     public float AdditionalDefense;
     public float AdditionalCriticalHit;
+    public int Price;
     public Sprite icon;
 }

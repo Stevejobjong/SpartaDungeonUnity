@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour
 
     private void Awake()
     {
+        successUI.transform.localScale = Vector3.one * 0.1f;
+        faildUI.transform.localScale = Vector3.one * 0.1f;
         instance = this;
     }
     void Start()
@@ -27,8 +29,8 @@ public class Shop : MonoBehaviour
     public void PurchaseResult(bool isSuccess)
     {
         if (isSuccess)
-            successUI.SetActive(true);
+            GameManager.instance.Appear(successUI);
         else
-            faildUI.SetActive(true);
+            GameManager.instance.Appear(faildUI);
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         playerstat = Player.GetComponent<PlayerStatusHandler>();
+        StatusUI.transform.localScale = Vector3.one * 0.1f;
+        InventoryUI.transform.localScale = Vector3.one * 0.1f;
+        ShopUI.transform.localScale = Vector3.one * 0.1f;
+        StatusUI.SetActive(false);
+        InventoryUI.SetActive(false);
+        ShopUI.SetActive(false);
     }
     void Start()
     {
@@ -41,11 +48,11 @@ public class GameManager : MonoBehaviour
         StatusButton.SetActive(false);
         InventoryButton.SetActive(false);
         ShopButton.SetActive(false);
-        StatusUI.SetActive(true);
+        Appear(StatusUI);
     }
     public void OnClickedStatusCloseButton()
     {
-        StatusUI.SetActive(false);
+        Hide(StatusUI);
         StatusButton.SetActive(true);
         InventoryButton.SetActive(true);
         ShopButton.SetActive(true);
@@ -56,22 +63,22 @@ public class GameManager : MonoBehaviour
         InventoryButton.SetActive(false);
         ShopButton.SetActive(false);
         Inventory.instance.UpdateUI();
-        InventoryUI.SetActive(true);
+        Appear(InventoryUI);
     }
     public void OnClickedInventoryCloseButton()
     {
-        InventoryUI.SetActive(false);
+        Hide(InventoryUI);
         StatusButton.SetActive(true);
         InventoryButton.SetActive(true);
         ShopButton.SetActive(true);
     }
     public void OnClickedShopButton()
     {
-        ShopUI.SetActive(true);
+        Appear(ShopUI);
     }
     public void OnClickedShopCloseButton()
     {
-        ShopUI.SetActive(false);
+        Hide(ShopUI);
     }
     //플레이어의 공격력, 방어력, HP, 치명타 정보를 얻어와 Status창의 Text 갱신
     public void GetPlayerStat()
@@ -91,5 +98,28 @@ public class GameManager : MonoBehaviour
         else
             value = itemSo.AdditionalCriticalHit;
         playerstat.AddStat(itemSo.StatType, value * sign);
+    }
+    public void Appear(GameObject go)
+    {
+        go.SetActive(true);
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(go.transform.DOScale(1.1f, 0.2f));
+        seq.Append(go.transform.DOScale(1f, 0.1f));
+
+        seq.Play();
+    }
+    public void Hide(GameObject go)
+    {
+        Sequence seq = DOTween.Sequence();
+
+        go.transform.localScale = Vector3.one * 0.2f;
+
+        seq.Append(go.transform.DOScale(1.1f, 0.1f));
+        seq.Append(go.transform.DOScale(0.1f, 0.2f));
+
+        seq.Play().OnComplete(() => {
+            go.SetActive(false);
+        });
     }
 }

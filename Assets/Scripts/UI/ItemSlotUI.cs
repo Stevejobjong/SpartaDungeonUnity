@@ -58,7 +58,7 @@ public class ItemSlotUI : SlotUI
         {
             PopupUI.SetPopup(curItem.icon, Resources.Load<Sprite>("clover"), curItem.ItemName, curItem.description, curItem.AdditionalCriticalHit);
         }
-        PopupUI.gameObject.SetActive(true);
+        PopupUI.Appear();
     }
 
 }

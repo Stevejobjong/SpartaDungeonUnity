@@ -5,35 +5,40 @@ using UnityEngine;
 public class PlayerStatusHandler : MonoBehaviour
 {
     [SerializeField] PlayerStatus baseStatus;
-
+    private StatusSO playerStatusSO;
+    private void Awake()
+    {
+        //기본 데이터를 건들지 않고 clone생성
+        playerStatusSO = Instantiate(baseStatus.statusSO);
+    }
     public float getHealth()
     {
         return baseStatus.Health;
     }
     public float getPower()
     {
-        return baseStatus.statusSO.Power;
+        return playerStatusSO.Power;
     }
     public float getDefense()
     {
-        return baseStatus.statusSO.Defense;
+        return playerStatusSO.Defense;
     }
     public float getCritical()
     {
-        return baseStatus.statusSO.CriticalHit;
+        return playerStatusSO.CriticalHit;
     }
     public void AddStat(StatType type, float value)
     {
         switch (type)
         {
             case StatType.Power:
-                baseStatus.statusSO.Power += value;
+                playerStatusSO.Power += value;
                 break;
             case StatType.Defense:
-                baseStatus.statusSO.Defense += value;
+                playerStatusSO.Defense += value;
                 break;
             case StatType.CriticalHit:
-                baseStatus.statusSO.CriticalHit += value;
+                playerStatusSO.CriticalHit += value;
                 break; ;
         }
     }

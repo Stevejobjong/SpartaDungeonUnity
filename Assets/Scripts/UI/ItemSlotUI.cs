@@ -97,10 +97,17 @@ public class ItemSlotUI : SlotUI, IBeginDragHandler, IDragHandler, IEndDragHandl
         ItemSO _tempItem = curItem;
 
         Set(DragSlot.instance.dragSlot.curItem);
+        Inventory.instance.InsertItem(DragSlot.instance.dragSlot.curItem, index);
 
         if (_tempItem != null)
+        {
             DragSlot.instance.dragSlot.Set(_tempItem);
+            Inventory.instance.InsertItem(_tempItem, DragSlot.instance.dragSlot.index);
+        }
         else
+        {
+            Inventory.instance.ClearItem(_tempItem, DragSlot.instance.dragSlot.index);
             DragSlot.instance.dragSlot.Clear();
+        }
     }
 }

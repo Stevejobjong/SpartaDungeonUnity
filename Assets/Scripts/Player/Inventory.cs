@@ -83,15 +83,15 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
-    //아이템 삽입
     public void InsertItem(ItemSO item, int idx)
     {
         slots[idx] = item;
+        UpdateUI();
     }
-    //아이템 삭제
     public void ClearItem(ItemSO item, int idx)
     {
         slots[idx] = null;
+        UpdateUI();
     }
 
     //장착 토글

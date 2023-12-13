@@ -38,6 +38,10 @@ public class ItemSlotUI : SlotUI, IBeginDragHandler, IDragHandler, IEndDragHandl
     {
         curItem = null;
         image.gameObject.SetActive(false);
+        if (equipMark != null)
+        {
+            equipMark.SetActive(equipped);
+        }
     }
     public void OnClicked()
     {
@@ -89,25 +93,32 @@ public class ItemSlotUI : SlotUI, IBeginDragHandler, IDragHandler, IEndDragHandl
     public void OnDrop(PointerEventData eventData)
     {
         if (DragSlot.instance.dragSlot != null)
-            ChangeSlot();
+            ChangeSlot(DragSlot.instance.dragSlot);
     }
 
-    private void ChangeSlot()
+    private void ChangeSlot(ItemSlotUI dragSlot)
     {
+        //Drop위치의 아이템 임시 저장
         ItemSO _tempItem = curItem;
+        bool _tempEquip = equipped;
 
-        Set(DragSlot.instance.dragSlot.curItem);
-        Inventory.instance.InsertItem(DragSlot.instance.dragSlot.curItem, index);
+        //Drop위치에 Drag한 아이템 설정
+        Set(dragSlot.curItem);        
+        equipped = dragSlot.equipped;
+        Inventory.instance.InsertItem(dragSlot.curItem, index);
 
+        //Drag위치에 Drop위치 정보 설정
+        dragSlot.equipped = _tempEquip;
         if (_tempItem != null)
         {
-            DragSlot.instance.dragSlot.Set(_tempItem);
-            Inventory.instance.InsertItem(_tempItem, DragSlot.instance.dragSlot.index);
+            //Drop위치에 아이템이 있었다면 Drag한 슬롯 위치에 현재 아이템 설정
+            Inventory.instance.InsertItem(_tempItem, dragSlot.index);
+            dragSlot.Set(_tempItem);
         }
         else
         {
-            Inventory.instance.ClearItem(_tempItem, DragSlot.instance.dragSlot.index);
-            DragSlot.instance.dragSlot.Clear();
+            Inventory.instance.ClearItem(_tempItem, dragSlot.index);
+            dragSlot.Clear();
         }
     }
 }

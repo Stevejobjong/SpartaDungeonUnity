@@ -3340,7 +3340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSlot: {fileID: 0}
-  imageItem: {fileID: 0}
+  imageItem: {fileID: 930613284}
 --- !u!1001 &967442251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8837,7 +8837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2091297019
 RectTransform:
   m_ObjectHideFlags: 0

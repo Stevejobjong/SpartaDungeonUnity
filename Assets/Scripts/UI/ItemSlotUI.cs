@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
-public class ItemSlotUI : SlotUI
+public class ItemSlotUI : SlotUI, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     private EquipPopup PopupUI;
     public GameObject equipMark;
@@ -61,4 +64,43 @@ public class ItemSlotUI : SlotUI
         PopupUI.Appear();
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (curItem != null)
+        {
+            DragSlot.instance.dragSlot = this;
+            DragSlot.instance.DragSetImage(curItem.icon);
+            DragSlot.instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (curItem != null)
+            DragSlot.instance.transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragSlot.instance.SetAlpha(0);
+        DragSlot.instance.dragSlot = null;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (DragSlot.instance.dragSlot != null)
+            ChangeSlot();
+    }
+
+    private void ChangeSlot()
+    {
+        ItemSO _tempItem = curItem;
+
+        Set(DragSlot.instance.dragSlot.curItem);
+
+        if (_tempItem != null)
+            DragSlot.instance.dragSlot.Set(_tempItem);
+        else
+            DragSlot.instance.dragSlot.Clear();
+    }
 }
